@@ -1,0 +1,116 @@
+#include <stdio.h>
+
+// ==== Declaração das funções de conversão ==== //
+float c_to_f(float c);
+float c_to_k(float c);
+float f_to_c(float f);
+float f_to_k(float f);
+float k_to_c(float k);
+float k_to_f(float k);
+
+// ==== Funções auxiliares ==== //
+void clear_buffer();
+void show_menu();
+
+int main() {
+    int option = -1;
+    float input, result;
+
+    while (option != 0) {
+        show_menu();
+
+        printf("Choose an option: ");
+        if (scanf("%i", &option) != 1) {
+            printf("Invalid input! Please enter a number.\n");
+            clear_buffer();
+            option = -1;
+            continue;
+        }
+
+        if (option == 0) {
+            printf("Closing system...\n");
+            break;
+        }
+
+        printf("\n");
+
+        switch (option) {
+            case 1:
+                printf("Enter temperature in Celsius: ");
+                if (scanf("%f", &input) != 1) { printf("Invalid input!\n"); clear_buffer(); break; }
+                result = c_to_f(input);
+                printf("Result: %.2f °F\n", result);
+                break;
+
+            case 2:
+                printf("Enter temperature in Celsius: ");
+                if (scanf("%f", &input) != 1) { printf("Invalid input!\n"); clear_buffer(); break; }
+                result = c_to_k(input);
+                printf("Result: %.2f K\n", result);
+                break;
+
+            case 3:
+                printf("Enter temperature in Fahrenheit: ");
+                if (scanf("%f", &input) != 1) { printf("Invalid input!\n"); clear_buffer(); break; }
+                result = f_to_c(input);
+                printf("Result: %.2f °C\n", result);
+                break;
+
+            case 4:
+                printf("Enter temperature in Fahrenheit: ");
+                if (scanf("%f", &input) != 1) { printf("Invalid input!\n"); clear_buffer(); break; }
+                result = f_to_k(input);
+                printf("Result: %.2f K\n", result);
+                break;
+
+            case 5:
+                printf("Enter temperature in Kelvin: ");
+                if (scanf("%f", &input) != 1) { printf("Invalid input!\n"); clear_buffer(); break; }
+                result = k_to_c(input);
+                printf("Result: %.2f °C\n", result);
+                break;
+
+            case 6:
+                printf("Enter temperature in Kelvin: ");
+                if (scanf("%f", &input) != 1) { printf("Invalid input!\n"); clear_buffer(); break; }
+                result = k_to_f(input);
+                printf("Result: %.2f °F\n", result);
+                break;
+
+            default:
+                printf("Invalid option! Try again.\n");
+        }
+
+        // Pausa para o usuário ver o resultado
+        printf("\nPress ENTER to continue...");
+        clear_buffer();
+        getchar(); // espera Enter
+    }
+
+    return 0;
+}
+
+// ==== Implementação das funções de conversão ==== //
+float c_to_f(float c) { return c * 1.8 + 32; }
+float c_to_k(float c) { return c + 273.15; }
+float f_to_c(float f) { return (f - 32) / 1.8; }
+float f_to_k(float f) { return (f - 32) / 1.8 + 273.15; }
+float k_to_c(float k) { return k - 273.15; }
+float k_to_f(float k) { return 1.8 * (k - 273.15) + 32; }
+
+// ==== Outras funções auxiliares ==== //
+void clear_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void show_menu() {
+    printf("\n=====================================\n");
+    printf("        Temperature Converter\n");
+    printf("=====================================\n");
+    printf("1: Celsius → Fahrenheit     2: Celsius → Kelvin\n");
+    printf("3: Fahrenheit → Celsius     4: Fahrenheit → Kelvin\n");
+    printf("5: Kelvin → Celsius         6: Kelvin → Fahrenheit\n");
+    printf("0: Exit\n");
+    printf("=====================================\n");
+}
